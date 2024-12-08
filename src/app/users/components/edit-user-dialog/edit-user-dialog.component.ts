@@ -31,9 +31,6 @@ export class EditUserDialogComponent {
   ) {
     this.parentCall = data.parentCall;
     this.isEdit = this.data.isEdit;
-    // this.dialogRef.componentInstance.isEdit = this.isEdit;
-
-    // console.log(this.dialogRef.componentInstance.isEdit);
 
     this.form = new FormGroup({
       name: new FormControl(this.isEdit ? this.data.user.name : '', [

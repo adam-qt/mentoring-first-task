@@ -51,8 +51,6 @@ export class UserCardComponent implements OnInit {
       } else {
         this.createUserWrap.emit(result);
       }
-
-      console.log('модалка закрылась', result);
     });
   }
 }

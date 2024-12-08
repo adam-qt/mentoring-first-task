@@ -1,7 +1,7 @@
 
 <form   style="margin: auto; display: flex; flex-direction: column; align-items: center" [formGroup]="form" >
   <div *ngIf="!parentCall">
-  <button (click)="editToggle()" >{{ isEdit ? 'переключить на создание' : 'переключить на редактирование' }}</button>
+  <button (click)="editToggle()" >{{ isEdit ? 'switch to creation' : 'switch to edit' }}</button>
   </div>
 
 
@@ -39,6 +39,6 @@
     </div>
 
   </div>
-  <button type="submit"  style = "margin-top: 30px; margin-bottom: 20px" [disabled]="form.invalid" [mat-dialog-close]="userWithUpdatedFields" >{{ isEdit ? 'Редактировать' : 'Создать' }}</button>
+  <button type="submit"  style = "margin-top: 30px; margin-bottom: 20px" [disabled]="form.invalid" [mat-dialog-close]="userWithUpdatedFields" >{{ isEdit ? 'Edit' : 'Create' }}</button>
 
 </form>
