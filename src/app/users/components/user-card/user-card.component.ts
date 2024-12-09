@@ -7,9 +7,9 @@ import {
   Output,
 } from '@angular/core';
 
-import { User } from '../../interfaces/users-interface';
+import { User } from '@interfaces/users-interface';
 import { MatDialog } from '@angular/material/dialog';
-import { EditUserDialogComponent } from '../edit-user-dialog/edit-user-dialog.component';
+import { EditUserDialogComponent } from '@components/edit-user-dialog/edit-user-dialog.component';
 
 @Component({
   selector: 'app-user-card',
@@ -22,10 +22,11 @@ export class UserCardComponent implements OnInit {
   @Input() user!: User;
   @Output() deleteUserWrap: EventEmitter<any> = new EventEmitter();
   //angular material
-  @Output() patchUserWrap: EventEmitter<any> = new EventEmitter();
-  readonly dialog: MatDialog = inject(MatDialog);
+  @Output()
+  patchUserWrap: EventEmitter<any> = new EventEmitter();
   @Output()
   createUserWrap: EventEmitter<any> = new EventEmitter();
+  readonly dialog: MatDialog = inject(MatDialog);
 
   constructor() {}
   ngOnInit() {}
@@ -35,7 +36,10 @@ export class UserCardComponent implements OnInit {
   }
 
   // angular material
-
+  /**
+   * переменная parentCall нужна для того чтобы при открытии модального окна из user-list.component (create user)
+   * была отключена возможность переключать режим редактировать\создать
+   * */
   openDialog(isEditLocal: boolean, parentCall: boolean): void {
     const dialogRef = this.dialog.open(EditUserDialogComponent, {
       data: { user: this.user, isEdit: isEditLocal, parentCall: parentCall },
@@ -45,7 +49,7 @@ export class UserCardComponent implements OnInit {
       if (!result) {
         return;
       }
-      console.log(dialogRef.componentInstance.isEdit);
+
       if (dialogRef.componentInstance.isEdit) {
         this.patchUserWrap.emit(result);
       } else {

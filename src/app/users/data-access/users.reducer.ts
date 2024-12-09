@@ -1,15 +1,17 @@
 import { createReducer, on } from '@ngrx/store';
-import { User } from '../interfaces/users-interface';
+import { User } from '@interfaces/users-interface';
 import * as UserActions from './users.actions';
 
 export interface UserState {
   users: User[];
   error: string | null;
+  filter: string | null;
 }
 
 export const initialState: UserState = {
   users: [],
   error: null,
+  filter: null,
 };
 
 export const userReducer = createReducer<UserState>(
@@ -17,6 +19,10 @@ export const userReducer = createReducer<UserState>(
   on(UserActions.loadUsersSuccess, (state, { users }) => ({
     ...state,
     users: users,
+  })),
+  on(UserActions.loadUsersFailure, (state, { error }) => ({
+    ...state,
+    error: error,
   })),
   on(UserActions.addUser, (state, { user }) => ({
     ...state,
@@ -31,5 +37,9 @@ export const userReducer = createReducer<UserState>(
     users: state.users.map((user) =>
       user.id === editUser.id ? editUser : user,
     ),
+  })),
+  on(UserActions.updateFilter, (state, { filter }) => ({
+    ...state,
+    filter: filter,
   })),
 );

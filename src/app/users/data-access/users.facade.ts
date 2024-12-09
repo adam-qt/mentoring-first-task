@@ -3,7 +3,7 @@ import * as UserActions from './users.actions';
 import { UserState } from './users.reducer';
 import * as UsersSelectors from './users.selectors';
 import { Observable } from 'rxjs';
-import { User } from '../interfaces/users-interface';
+import { User } from '@interfaces/users-interface';
 import { Injectable } from '@angular/core';
 
 @Injectable({ providedIn: 'root' })
@@ -32,5 +32,12 @@ export class UsersFacade {
 
   isUserExists(user: User) {
     return this.store.select(UsersSelectors.isUserExistsSelector(user));
+  }
+
+  updateFilter(filter: string) {
+    this.store.dispatch(UserActions.updateFilter({ filter: filter }));
+  }
+  getFilter() {
+    return this.store.pipe(select(UsersSelectors.selectFilter));
   }
 }

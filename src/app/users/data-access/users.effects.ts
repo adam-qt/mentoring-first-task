@@ -1,12 +1,12 @@
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { inject } from '@angular/core';
-import { Observable, of, switchMap } from 'rxjs';
+import { of, switchMap } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import * as UserActions from './users.actions';
-import { UsersApiService } from '../services/users-api.service';
-import { UsersService } from '../services/users.service';
+import { UsersApiService } from '@services/users-api.service';
+import { UsersService } from '@services/users.service';
 
-import { User } from '../interfaces/users-interface';
+import { User } from '@interfaces/users-interface';
 
 export const UsersEffects = createEffect(
   () => {

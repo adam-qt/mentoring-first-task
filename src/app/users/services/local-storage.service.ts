@@ -5,12 +5,6 @@ import { User } from '../interfaces/users-interface';
   providedIn: 'root',
 })
 export class LocalStorageService {
-  /**
-   *
-   * @param key
-   * @param value
-   *
-   * */
   public set(key: string, value: User[]): void {
     localStorage.setItem(key, JSON.stringify(value));
   }

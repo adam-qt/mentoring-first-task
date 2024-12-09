@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { User } from '../interfaces/users-interface';
+import { User } from '@interfaces/users-interface';
 
 export const setUsers = createAction('[Users] Set users');
 export const editUser = createAction(
@@ -22,4 +22,9 @@ export const loadUsersSuccess = createAction(
 export const loadUsersFailure = createAction(
   '[Users] Load users failure',
   props<{ error: string }>(),
+);
+
+export const updateFilter = createAction(
+  '[Users] Update filter',
+  props<{ filter: string }>(),
 );

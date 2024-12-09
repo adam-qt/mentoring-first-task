@@ -6,18 +6,19 @@ import {
   ViewChild,
 } from '@angular/core';
 import { AsyncPipe, NgFor } from '@angular/common';
-import { User } from '../../interfaces/users-interface';
-import { UsersService } from '../../services/users.service';
-import { Observable, of, take, Subscription } from 'rxjs';
-import { UserCardComponent } from '../user-card/user-card.component';
-import { UsersFacade } from '../../data-access/users.facade';
+import { User } from '@interfaces/users-interface';
+import { UsersService } from '@services/users.service';
+import { Observable, take } from 'rxjs';
+import { UserCardComponent } from '@components/user-card/user-card.component';
+import { UsersFacade } from '@data-access/users.facade';
+import { UsersFilterComponent } from '@components/users-filter/users-filter.component';
 
 @Component({
   selector: 'app-users',
   templateUrl: './users-list.component.html',
   styleUrls: ['./users-list.component.scss'],
   standalone: true,
-  imports: [NgFor, AsyncPipe, UserCardComponent],
+  imports: [NgFor, AsyncPipe, UserCardComponent, UsersFilterComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UsersListComponent implements OnInit {
