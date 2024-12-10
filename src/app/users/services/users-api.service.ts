@@ -1,13 +1,13 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { GET_USERS_ENDPOINT } from '@constants/endpoints';
 
 @Injectable({ providedIn: 'root' })
 export class UsersApiService {
-  readonly apiClient: HttpClient = inject(HttpClient);
-  private readonly usersEndpoint: string =
-    'https://jsonplaceholder.typicode.com/users';
+  public readonly apiClient: HttpClient = inject(HttpClient);
 
-  getUsers() {
-    return this.apiClient.get(this.usersEndpoint);
+  getUsers(): Observable<Object> {
+    return this.apiClient.get(GET_USERS_ENDPOINT);
   }
 }

@@ -1,14 +1,21 @@
 import { inject, Injectable } from '@angular/core';
 // import { BehaviorSubject, Observable } from 'rxjs';
-import { User } from '../interfaces/users-interface';
+import { User } from '@interfaces/users-interface';
 // import { LocalStorageService } from './local-storage.service';
+
+type formData = {
+  id: number;
+  name: string;
+  username: string;
+  email: string;
+  companyName: string;
+};
 
 @Injectable({
   providedIn: 'root',
 })
 export class UsersService {
-  /** forms */
-  parseFormDataToUser(formData: any): User {
+  parseFormDataToUser(formData: formData): User {
     return {
       id: formData.id ? formData.id : new Date().getTime(),
       name: formData.name,
@@ -20,7 +27,7 @@ export class UsersService {
     };
   }
   parseApiResponseToUserList(objects: any): User[] {
-    return objects.map((obj: any) => ({
+    return objects.map((obj: User) => ({
       id: obj.id,
       name: obj.name,
       username: obj.username,

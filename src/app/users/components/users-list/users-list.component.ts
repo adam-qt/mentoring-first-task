@@ -25,12 +25,11 @@ export class UsersListComponent implements OnInit {
   public readonly users$: Observable<User[]>;
   private readonly usersService: UsersService = inject(UsersService);
 
-  //CONSTRUCTOR
   constructor(private usersFacade: UsersFacade) {
     this.users$ = this.usersFacade.getAllUsers();
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.usersFacade.init();
   }
 
@@ -43,7 +42,6 @@ export class UsersListComponent implements OnInit {
     this.usersFacade
       .isUserExists(this.usersService.parseFormDataToUser(formData))
       .pipe(take(1))
-
       .subscribe((isExist) => {
         if (isExist) {
           alert('User is already exists!');

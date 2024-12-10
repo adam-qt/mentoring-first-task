@@ -12,6 +12,13 @@ import {
   Validators,
 } from '@angular/forms';
 import { NgIf } from '@angular/common';
+import { User } from '@interfaces/users-interface';
+
+type transferredData = {
+  user: User;
+  isEdit: boolean;
+  parentCall: boolean;
+};
 
 @Component({
   selector: 'app-edit-user-dialog',
@@ -21,12 +28,12 @@ import { NgIf } from '@angular/common';
   styleUrl: './edit-user-dialog.component.scss',
 })
 export class EditUserDialogComponent {
-  public form: FormGroup;
+  public readonly form: FormGroup;
   public isEdit: boolean;
   public parentCall: boolean;
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) private data: any,
+    @Inject(MAT_DIALOG_DATA) private data: transferredData,
     public dialogRef: MatDialogRef<EditUserDialogComponent>,
   ) {
     this.parentCall = data.parentCall;
@@ -52,7 +59,7 @@ export class EditUserDialogComponent {
     });
   }
 
-  editToggle() {
+  editToggle(): void {
     this.isEdit = !this.isEdit;
     if (!this.isEdit) {
       this.form.reset();
@@ -66,7 +73,7 @@ export class EditUserDialogComponent {
     }
   }
 
-  get userWithUpdatedFields() {
+  get userWithUpdatedFields(): User {
     return {
       ...this.form.value,
       id: this.dialogRef.componentInstance.isEdit

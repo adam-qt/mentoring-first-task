@@ -1,25 +1,16 @@
 
 .card{
-   /* Чтобы div был как кнопка */
-  padding: 10px 20px;    /* Внутренний отступ */
-  background-color: gray; /* Цвет фона */
-  color: white;          /* Цвет текста */
-  border: none;          /* Убираем рамку */
-  cursor: pointer;       /* Указываем курсор */
-  text-align: center;    /* Центрируем текст */
+  padding: 10px 20px;
+  background-color: gray;
+  color: white;
+  border: none;
+  cursor: pointer;
+  text-align: center;
   border-radius: 4px;
-  transition: 0.3s }
-
-
-
-
-
-.card:hover{
-  background-color: dimgray;
+  transition: 0.3s;
+  &:hover{
+    background-color: dimgray;}
 }
-
-
-
 
 .glow-on-hover {
   width: 100px;

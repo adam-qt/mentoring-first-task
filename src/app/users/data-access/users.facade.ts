@@ -14,30 +14,27 @@ export class UsersFacade {
     return this.store.pipe(select(UsersSelectors.selectAllUsers));
   }
 
-  init() {
+  init(): void {
     this.store.dispatch(UserActions.setUsers());
   }
 
-  deleteUserById(id: number) {
+  deleteUserById(id: number): void {
     this.store.dispatch(UserActions.deleteUserById({ id: id }));
   }
 
-  createUser(user: User) {
+  createUser(user: User): void {
     this.store.dispatch(UserActions.addUser({ user: user }));
   }
 
-  editUser(user: User) {
+  editUser(user: User): void {
     this.store.dispatch(UserActions.editUser({ editUser: user }));
   }
 
-  isUserExists(user: User) {
+  isUserExists(user: User): Observable<boolean> {
     return this.store.select(UsersSelectors.isUserExistsSelector(user));
   }
 
-  updateFilter(filter: string) {
+  updateFilter(filter: string): void {
     this.store.dispatch(UserActions.updateFilter({ filter: filter }));
-  }
-  getFilter() {
-    return this.store.pipe(select(UsersSelectors.selectFilter));
   }
 }

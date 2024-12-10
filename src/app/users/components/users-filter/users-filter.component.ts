@@ -6,7 +6,6 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-
 import { UsersFacade } from '@data-access/users.facade';
 
 @Component({
@@ -17,9 +16,9 @@ import { UsersFacade } from '@data-access/users.facade';
   styleUrl: './users-filter.component.scss',
 })
 export class UsersFilterComponent {
-  form: FormGroup;
-  data: string = '';
-  usersFacade = inject(UsersFacade);
+  public readonly form: FormGroup;
+  public data: string = '';
+  usersFacade: UsersFacade = inject(UsersFacade);
 
   constructor() {
     this.form = new FormGroup({
@@ -31,7 +30,7 @@ export class UsersFilterComponent {
       ?.valueChanges.subscribe((value) => this.usersFacade.updateFilter(value));
   }
 
-  search() {
+  usersFilter() {
     this.data = this.form.get('filter')?.value;
   }
 }
