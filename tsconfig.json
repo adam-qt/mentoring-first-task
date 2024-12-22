@@ -1,14 +1,23 @@
-/* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
   "compileOnSave": false,
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
-      "@interfaces/*": ["src/app/users/interfaces/*"],
-      "@components/*": ["src/app/users/components/*"],
-      "@services/*": ["src/app/users/services/*"],
-      "@data-access/*": ["src/app/users/data-access/*"],
-      "@constants/*": ["src/app/constants/*"]
+      "@components/*": [
+        "src/app/users/components/*"
+      ],
+      "@constants/*": [
+        "src/app/constants/*"
+      ],
+      "@data-access/*": [
+        "src/app/users/data-access/*"
+      ],
+      "@interfaces/*": [
+        "src/app/users/interfaces/*"
+      ],
+      "@services/*": [
+        "src/app/users/services/*"
+      ]
     },
     "outDir": "./dist/out-tsc",
     "strict": true,

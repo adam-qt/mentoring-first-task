@@ -6,8 +6,8 @@ import {
   ViewChild,
 } from '@angular/core';
 import { AsyncPipe, NgFor } from '@angular/common';
-import { User } from '@interfaces/users-interface';
-import { UsersService } from '@services/users.service';
+import { User } from '@interfaces/types';
+
 import { Observable, take } from 'rxjs';
 import { UserCardComponent } from '@components/user-card/user-card.component';
 import { UsersFacade } from '@data-access/users.facade';
@@ -23,9 +23,9 @@ import { UsersFilterComponent } from '@components/users-filter/users-filter.comp
 })
 export class UsersListComponent implements OnInit {
   public readonly users$: Observable<User[]>;
-  private readonly usersService: UsersService = inject(UsersService);
 
-  constructor(private usersFacade: UsersFacade) {
+  private readonly usersFacade: UsersFacade = inject(UsersFacade);
+  constructor() {
     this.users$ = this.usersFacade.getAllUsers();
   }
 
@@ -38,23 +38,21 @@ export class UsersListComponent implements OnInit {
     this.child.openDialog(false, true);
   }
 
-  createUser(formData: any): void {
+  createUser(user: User): void {
     this.usersFacade
-      .isUserExists(this.usersService.parseFormDataToUser(formData))
+      .isUserExists(user)
       .pipe(take(1))
       .subscribe((isExist) => {
         if (isExist) {
           alert('User is already exists!');
         } else {
-          this.usersFacade.createUser(
-            this.usersService.parseFormDataToUser(formData),
-          );
+          this.usersFacade.createUser(user);
         }
       });
   }
 
-  patchUser(formData: any) {
-    this.usersFacade.editUser(this.usersService.parseFormDataToUser(formData));
+  patchUser(user: User) {
+    this.usersFacade.editUser(user);
   }
 
   deleteUser(id: number) {

@@ -1,4 +1,4 @@
-export interface User {
+export type User = {
   id: number;
   name: string;
   username: string;
@@ -15,9 +15,16 @@ export interface User {
   };
   phone?: string;
   website?: string;
-  company: {
-    name: string;
-    catchPhrase?: string;
-    bs?: string;
-  };
-}
+  company: Company;
+};
+
+type Company = {
+  name: string;
+  catchPhrase?: string;
+  bs?: string;
+};
+export type dialogVM = {
+  user: User;
+  isEdit: boolean;
+  parentCall: boolean;
+};

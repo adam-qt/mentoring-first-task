@@ -24,14 +24,16 @@
   </div>
 
 <!--  company-input-->
+  <ng-container formGroupName="company">
   <p>company</p>
-  <input type="text" formControlName="companyName">
+  <input type="text" formControlName="name">
 
-  <div *ngIf="form.controls['companyName'].invalid && (form.controls['companyName'].touched || form.controls['companyName'].dirty)">
+  <div *ngIf="form.get('company.name')?.invalid && (form.get('company.name')?.touched || form.get('company.name')?.dirty)">
     <div style="color: red">
       <p>invalid name of company value</p>
     </div>
   </div>
+  </ng-container>
 <!--  email-input-->
 
   <p>email</p>
@@ -43,6 +45,6 @@
     </div>
   </div>
 
-  <button type="submit"  style = "margin-top: 30px; margin-bottom: 20px" [disabled]="form.invalid" [mat-dialog-close]="userWithUpdatedFields" >{{ isEdit ? 'Edit' : 'Create' }}</button>
+  <button type="submit"  style = "margin-top: 30px; margin-bottom: 20px" [disabled]="form.invalid" (click)="closeDialog()"  >{{ isEdit ? 'Edit' : 'Create' }}</button>
 
 </form>

@@ -3,7 +3,7 @@ import * as UserActions from './users.actions';
 import { UserState } from './users.reducer';
 import * as UsersSelectors from './users.selectors';
 import { Observable } from 'rxjs';
-import { User } from '@interfaces/users-interface';
+import { User } from '@interfaces/types';
 import { Injectable } from '@angular/core';
 
 @Injectable({ providedIn: 'root' })

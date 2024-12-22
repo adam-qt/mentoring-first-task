@@ -1,29 +1,19 @@
-import { Component, Inject } from '@angular/core';
+import { Component, inject, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import {
-  MAT_DIALOG_DATA,
-  MatDialogClose,
-  MatDialogRef,
-} from '@angular/material/dialog';
-import {
-  FormControl,
+  FormBuilder,
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
 import { NgIf } from '@angular/common';
-import { User } from '@interfaces/users-interface';
-
-type transferredData = {
-  user: User;
-  isEdit: boolean;
-  parentCall: boolean;
-};
+import { dialogVM } from '@interfaces/types';
 
 @Component({
   selector: 'app-edit-user-dialog',
   standalone: true,
-  imports: [FormsModule, NgIf, ReactiveFormsModule, MatDialogClose],
+  imports: [FormsModule, NgIf, ReactiveFormsModule],
   templateUrl: './edit-user-dialog.component.html',
   styleUrl: './edit-user-dialog.component.scss',
 })
@@ -31,31 +21,33 @@ export class EditUserDialogComponent {
   public readonly form: FormGroup;
   public isEdit: boolean;
   public parentCall: boolean;
+  private formBuilder: FormBuilder = inject(FormBuilder);
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) private data: transferredData,
+    @Inject(MAT_DIALOG_DATA) private data: dialogVM,
     public dialogRef: MatDialogRef<EditUserDialogComponent>,
   ) {
     this.parentCall = data.parentCall;
     this.isEdit = this.data.isEdit;
-
-    this.form = new FormGroup({
-      name: new FormControl(this.isEdit ? this.data.user.name : '', [
-        Validators.required,
-        Validators.minLength(3),
-      ]),
-      username: new FormControl(this.isEdit ? this.data.user.username : '', [
-        Validators.required,
-        Validators.minLength(3),
-      ]),
-      companyName: new FormControl(
-        this.isEdit ? this.data.user.company.name : '',
+    this.form = this.formBuilder.group({
+      name: [
+        this.isEdit ? this.data.user.name : '',
         [Validators.required, Validators.minLength(3)],
-      ),
-      email: new FormControl(this.isEdit ? this.data.user.email : '', [
-        Validators.required,
-        Validators.email,
-      ]),
+      ],
+      username: [
+        this.isEdit ? this.data.user.username : '',
+        [Validators.required, Validators.minLength(3)],
+      ],
+      email: [
+        this.isEdit ? this.data.user.email : '',
+        [Validators.required, Validators.email],
+      ],
+      company: this.formBuilder.group({
+        name: [
+          this.isEdit ? this.data.user.company.name : '',
+          [Validators.required, Validators.minLength(3)],
+        ],
+      }),
     });
   }
 
@@ -67,18 +59,25 @@ export class EditUserDialogComponent {
       this.form.patchValue({
         name: this.data.user.name || '',
         username: this.data.user.username || '',
-        companyName: this.data.user.company.name || '',
+        company: {
+          name: this.data.user.company.name || '',
+        },
         email: this.data.user.email || '',
       });
     }
   }
 
-  get userWithUpdatedFields(): User {
-    return {
-      ...this.form.value,
-      id: this.dialogRef.componentInstance.isEdit
-        ? this.data.user.id
-        : new Date().getTime(),
-    };
+  closeDialog() {
+    if (this.form.valid) {
+      const user = {
+        ...this.form.value,
+        id: this.dialogRef.componentInstance.isEdit
+          ? this.data.user.id
+          : new Date().getTime(),
+      };
+      this.dialogRef.close(user);
+    } else {
+      prompt('form is invalid');
+    }
   }
 }

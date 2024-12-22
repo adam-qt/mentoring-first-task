@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { User } from '@interfaces/users-interface';
+import { User } from '@interfaces/types';
 
 export const setUsers = createAction('[Users] Set users');
 export const editUser = createAction(

@@ -3,25 +3,19 @@ import { inject } from '@angular/core';
 import { of, switchMap } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import * as UserActions from './users.actions';
-import { UsersApiService } from '@services/users-api.service';
-import { UsersService } from '@services/users.service';
-
-import { User } from '@interfaces/users-interface';
+import { HttpClientService } from '@services/httpClientService';
 
 export const UsersEffects = createEffect(
   () => {
     const actions$ = inject(Actions);
-    const userApiService = inject(UsersApiService);
-    const usersService = inject(UsersService);
+    const httpClientService = inject(HttpClientService);
 
     return actions$.pipe(
       ofType(UserActions.setUsers),
       switchMap(() => {
-        return userApiService.getUsers().pipe(
+        return httpClientService.getUsers().pipe(
           map((users) => {
-            const items: User[] =
-              usersService.parseApiResponseToUserList(users);
-            return UserActions.loadUsersSuccess({ users: items });
+            return UserActions.loadUsersSuccess({ users: users });
           }),
           catchError((error) =>
             of(UserActions.loadUsersFailure({ error: error.message })),

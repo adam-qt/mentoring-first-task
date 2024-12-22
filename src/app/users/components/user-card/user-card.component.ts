@@ -1,5 +1,5 @@
 import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
-import { User } from '@interfaces/users-interface';
+import { User } from '@interfaces/types';
 import { MatDialog } from '@angular/material/dialog';
 import { EditUserDialogComponent } from '@components/edit-user-dialog/edit-user-dialog.component';
 
@@ -17,10 +17,10 @@ export class UserCardComponent {
   private readonly deleteUserWrap: EventEmitter<null> = new EventEmitter();
 
   @Output()
-  private readonly patchUserWrap: EventEmitter<FormData> = new EventEmitter();
+  private readonly patchUserWrap: EventEmitter<User> = new EventEmitter();
 
   @Output()
-  private readonly createUserWrap: EventEmitter<FormData> = new EventEmitter();
+  private readonly createUserWrap: EventEmitter<User> = new EventEmitter();
 
   private readonly dialog: MatDialog = inject(MatDialog);
 
@@ -35,7 +35,7 @@ export class UserCardComponent {
       data: { user: this.user, isEdit: isEditLocal, parentCall: parentCall },
     });
 
-    dialogRef.afterClosed().subscribe((formData: FormData): void => {
+    dialogRef.afterClosed().subscribe((formData: User): void => {
       if (!formData) {
         return;
       }

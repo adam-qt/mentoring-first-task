@@ -3,11 +3,11 @@
   <app-users-filter/>
 </div>
 <div class="users__container">
-  <div class="users__item" *ngFor="let user_item of users$ | async">
+  <div class="users__item" *ngFor="let user of users$ | async">
     <app-user-card class = 'app-user-card'
                    (createUserWrap)="createUser($event)"
-                   (patchUserWrap)="patchUser($event)" [user]="user_item"
-                   (deleteUserWrap) ="deleteUser(user_item.id) "/>
+                   (patchUserWrap)="patchUser($event)" [user]="user"
+                   (deleteUserWrap) ="deleteUser(user.id) "/>
   </div>
 </div>
 
